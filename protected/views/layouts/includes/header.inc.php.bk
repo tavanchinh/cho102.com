@@ -1,0 +1,356 @@
+<?php $baseUrl = Yii::app()->request->baseUrl;?>
+<div class="header-container">
+   <div class="header-row">
+      <div class="container">
+         <div class="row">
+            <div class="col-xs-12">
+               <div class="need">
+                  <ul class="">
+                     <li class="sell">
+                        <a href="#" title="Cần bán" >Cần bán</a>
+                     </li>
+                     <li class="buy">
+                        <a href="#" title="Cần mua" >Cần mua</a>
+                     </li>
+                  </ul>
+               </div>
+               <div class="notification">
+                  <i class="fa fa-globe"></i>
+                  <span class="number">5</span>
+               </div>
+               <div class="quick-access">
+                  <?php 
+                  //Check login
+                  $logged = isset($_COOKIE['logged']) ? json_decode($_COOKIE['logged'],true) : null;
+                  if($logged != null){
+                     $user = User::model()->findByAttributes(array(
+                        'email' => $logged['email'],
+                        'password' => $logged['password'],
+                     ));
+                  }
+                  if(isset($user) && $user != null){
+                     ?>
+                     <ul class="links">
+                        <li class="first" >
+                           <a href="<?php echo Yii::app()->request->baseUrl.'/profile'?>" ><?php echo $user->name?></a>
+                        </li>
+                        <li >
+                           <a href="<?php echo Yii::app()->baseUrl.'site/logout'?>" title="Đăng xuất" >Đăng xuất</a>
+                        </li>
+                     </ul>
+                  <?php }else{?>
+                     <ul class="links">
+                        <li class="first" >
+                           <a id="login_link" href="javascript:void(0)" title="Đăng nhập" >Đăng nhập</a>
+                        </li>
+                        <li >
+                           <a id="register_link" href="javascript:void(0)" title="Đăng ký" >Đăng ký</a>
+                        </li>
+                     </ul>
+                  <?php }?>
+                  
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-xs-12">
+            <div class="header">
+               <div class="skip-links"> <span href="header-account" class="skip-link skip-account"></span></div>
+               <?php $model = new User();?>
+               <div id="header-account" class="skip-content">
+                  <?php $form=$this->beginWidget('CActiveForm', array(
+                     'id' => 'login_form',
+                     'action' => '/site/login',
+                  	'enableClientValidation'=>false,
+                  	'clientOptions'=>array(
+                  		'validateOnSubmit'=>true,
+                  	),
+                     'htmlOptions' => array(
+                        'class' => 'form-horizontal'
+                     ),
+                  )); ?>
+                  <div class="youama-login-window youama-window" style="display: none;">
+                     <div class="youama-window-outside">
+                        <span class="close">×</span>
+                        <div class="youama-window-inside">
+                           <div class="youama-window-title">
+                              <h3>Đăng nhập</h3>
+                           </div>
+                           <div class="youama-window-box first">
+                              <div class="youama-window-content">
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'email'); ?>
+                              		<?php echo $form->textField($model,'email', array(
+                                       'placeholder' => 'Email',
+                                    )); ?>                                  
+                                 </div>
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'password'); ?>
+                              		<?php echo $form->passwordField($model,'password', array(
+                                       'placeholder' => 'Mật khẩu',
+                                    )); ?>
+                              		<div id="error" class="youama-ajaxlogin-error err-password" style="display: none;"></div>      
+                                    
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="youama-window-box last">
+                              <div class="youama-window-content box-contents box-contents-button youama-showhideme">
+                                 <button id="btn_login" type="button" class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button">
+                                    <span>
+                                       <span>Đăng nhập</span>
+                                    </span>
+                                 </button>
+                                 <p id="y-to-register" class="yoauam-switch-window">
+                                  Bạn chưa có tài khoản ? Đăng ký
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  <?php $this->endWidget(); ?>
+                  <?php $form=$this->beginWidget('CActiveForm', array(
+                     'id' => 'register_form',
+                     'action' => '/site/register',
+                  	'enableClientValidation'=>false,
+                  	'clientOptions'=>array(
+                  		'validateOnSubmit'=>true,
+                  	),
+                     'htmlOptions' => array(
+                        'class' => 'form-horizontal'
+                     ),
+                  )); ?>
+                  <div class="youama-register-window youama-window" style="display: none;">
+                     <div class="youama-window-outside">
+                        <span class="close">×</span>
+                        <div class="youama-window-inside">
+                           <div class="youama-window-title">
+                              <h3>
+                                 Đăng ký
+                              </h3>
+                           </div>
+                           <div class="youama-window-box first">
+                              <div class="youama-window-subtitle youama-showhideme">
+                                 <p>Thông tin cá nhân</p>
+                              </div>
+                              <div class="youama-window-content">
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'name'); ?>
+                              		<?php echo $form->textField($model,'name', array(
+                                       'placeholder' => 'Họ tên',
+                                       'class' => 'input-fly',
+                                    )); ?>
+                              		<div id="error" class="youama-ajaxlogin-error err-name" style="display: none;"></div> 
+                                 </div>
+                                 
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'gender'); ?>
+                              		<?php echo $form->dropDownList($model,'gender',array(1 => 'Nam',0 => 'Nữ'), array(
+                                       'class' => 'input-fly',
+                                    )); ?>
+                              		<?php echo $form->error($model,'gender'); ?>  
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="youama-window-box second">
+                              <div class="youama-window-subtitle youama-showhideme">
+                                 <p>Thông tin đăng nhập</p>
+                              </div>
+                              <div class="youama-window-content">
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'email'); ?>
+                              		<?php echo $form->textField($model,'email', array(
+                                       'placeholder' => 'Email',
+                                    )); ?>
+                              		<div id="error" class="youama-ajaxlogin-error err-email" style="display: none;"></div>
+                                 </div>
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'password'); ?>
+                              		<?php echo $form->passwordField($model,'password', array(
+                                       'placeholder' => 'Mật khẩu',
+                                       'class' => 'input-fly',
+                                    )); ?>
+                              		<div id="error" class="youama-ajaxlogin-error err-password" style="display: none;"></div> 
+                                 </div>
+                                 <div class="input-fly youama-showhideme">
+                                    <?php echo $form->labelEx($model,'repeatPassword'); ?>
+                              		<?php echo $form->passwordField($model,'repeatPassword', array(
+                                       'placeholder' => 'Xác nhận mật khẩu',
+                                       'class' => 'input-fly',
+                                    )); ?>
+                              		<div id="error" class="youama-ajaxlogin-error err-repeatPassword" style="display: none;"></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="youama-window-box last">
+                              <div class="youama-window-content box-contents youama-showhideme">
+                                 <button type="button" id="btn_register" class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button">
+                                 <span>
+                                    <span>Đăng ký</span>
+                                 </span>
+                                 </button>
+                                 <p id="y-to-login" class="yoauam-switch-window">
+                                   Bạn đã có tài khoản ? Đăng nhập
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <?php $this->endWidget(); ?>
+                  <div class="youama-ajaxlogin-loader"></div>
+               </div>
+               <h1 class="logo"><strong>Magento Commerce</strong><a href="/" title="Magento Commerce" class="logo"><img src="<?php echo $baseUrl?>/images/logo.gif" alt="Magento Commerce" /></a></h1>
+               <div class="search-container">
+                  <form id="search_mini_form" action="" method="get">
+                     <div class="form-search">
+                        <span class="p-reletive">
+                           <?php $menu = array(
+                              'Thời trang - phụ kiện',
+                              'Điện tử - điện máy',
+                              'Đồ dùng sinh hoạt',
+                              'Dịch vụ giải trí',
+                              'Nội thất - ngoại thất',
+                              'Sức khỏe - sắc đẹp',
+                           );?>
+                           <?php 
+                              $data_radius = array(
+                                 '0 - 1km',
+                                 '1 - 2km',
+                                 '2 - 5km',
+                                 '5 - 10km',
+                                 'Trên 10km',
+                              );
+                           ?>
+                           <div class="row">
+                              <div class="search-item search-radius">
+                                 <input id="address" type="text" placeholder="Nhập vào địa chỉ của bạn để tìm những cửa hàng gần đây" title="Tìm kiếm cửa hàng gần bạn" name="q"  class="input-text" />
+                                 <?php echo CHtml::dropDownList('radius',null,$data_radius,array('empty' => 'Bán kính','class' => 'input-select'))?>   
+                              </div>
+                              <div class="search-item">
+                                 <button type="submit" title="Tìm kiếm" class="button"><span><i class="fa fa-search"></i><span class="span-submit">Tìm kiếm</span></span></button>  
+                              </div>
+                           </div>
+                           
+                           
+                        </span>
+                        
+                     </div>
+                  </form>
+               </div>
+               <div class="post right">
+                  <a href="<?php echo Yii::app()->request->baseUrl.'/post'?>" class="btn btn-danger btn-post">
+                     <i class="fa fa-envelope"></i>
+                     <span>Đăng tin</span>
+                  </a>
+               </div>
+               
+               <div class="clear"></div>
+            </div>
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+</div> <!-- End header -->
+<script type="text/javascript">
+   $(document).ready(function(){
+      $("#y-to-login").on('click',function(){
+         toggle_form(".youama-login-window")
+      });
+      $("#login_link").on('click',function(){
+         toggle_form(".youama-login-window")
+      });
+      $(".youama-window-outside .close").on('click',function(){
+         $(".youama-window").slideUp();
+      })
+      function toggle_form(elment){
+         $form = $(elment);
+         $(".youama-window").hide();
+         if($form.css('display') != 'none' ){
+            $form.slideUp();
+         }else{
+            $form.slideDown();
+         }
+      }
+      $("#y-to-register").on('click',function(){
+         toggle_form(".youama-register-window")
+      });
+      $("#register_link").on('click',function(){
+         toggle_form(".youama-register-window")
+      });
+      
+      
+      //Submit register form
+      $("#btn_register").click(function(){
+         var data = $("#register_form").serialize();
+         var url = $("#register_form").attr("action");
+         var before_function = function(){
+            $(".youama-ajaxlogin-loader").show();
+         }
+         var success_function = function(result){
+            $(".youama-ajaxlogin-loader").hide();
+            if(typeof(result.error) != 'undefined'){
+               var errors = result.error;
+               for(var key in errors){
+                  var obj = errors[key];
+                  //console.log(obj);
+                  $(".err-"+key).text(obj).show();
+               }
+            }else{
+               $(".youama-ajaxlogin-loader").show();
+               setTimeout(function(){
+                  window.location.reload();
+               },2000)
+            }
+            
+         }
+         handleAjax(url,'POST','json',data,success_function,before_function);
+      });
+      
+      //Submit login form
+      $("#btn_login").click(function(){
+         if($("#User_email").val() == ""){
+            $("#User_email").focus();
+            return false;
+         }
+         if($("#User_password").val() == ""){
+            $("#User_password").focus();
+            return false;
+         }
+         var data = $("#login_form").serialize();
+         var url = $("#login_form").attr("action");
+         var before_function = function(){
+            $(".youama-ajaxlogin-loader").show();
+         }
+         var success_function = function(result){
+            $(".youama-ajaxlogin-loader").hide();
+            if(typeof(result.error) != 'undefined'){
+               $(".err-password").text(result.error).show();
+            }else{
+               $(".youama-ajaxlogin-loader").show();
+               setTimeout(function(){
+                  window.location.reload();
+               },2000)
+            }
+            
+         }
+         handleAjax(url,'POST','json',data,success_function,before_function);
+      });
+      
+      
+      //Press enter submit form
+      
+      $("html").keypress(function(e){
+         var display_form_login = $(".youama-login-window").css("display");
+         if(e.which == 13 && display_form_login == 'none'){
+            $("#btn_login").click();
+         }
+      })
+      
+   });
+</script>

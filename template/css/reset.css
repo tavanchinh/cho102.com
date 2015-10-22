@@ -1,0 +1,52 @@
+/** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content: ' ';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none;color:#000;outline: 0;}
+a:hover, a:focus{text-decoration: none;}
+.relative{position:relative;}
+.absolute{position:absolute;}
+.fixed{position:fixed;}
+.over-hide{overflow:hidden;}
+.left{float:left !important;}
+.right{float:right !important;}
+.uppercase{text-transform:uppercase;}
+.text-center{text-align:center;}
+.text-right{text-align:right;}
+.bold{font-weight:bold;}
+.italic{font-style:italic;}
+.arrow{border:8px solid transparent;}
+.img-wrap img{width:100%;height: 100%;}
+.clear{clear:both;}
+.no-margin-left{margin-left:0 !important;}
+.hide{display:none !important;}
+.hilight{color:#e64d4f !important;}
+.bg-main-color{background-color:#d91a3d !important;}
+.white{color:#ffffff !important;}
+.arrow{border-style:solid;border-color:transparent;border-width:8px;cursor:pointer;}
+.main-color{color:#e64d4f !important;}
+.sprite{background: url(../images/sprite.png) no-repeat;top:0;left:0}
+.no-margin-right{margin-right: 0 !important;}
+.no-margin-right{
+   margin-right: 0 !important;
+}
+.no-margin-left{
+   margin-left: 0 !important;
+}
+.no-padding-top{
+   padding-top: 0 !important;
+}
+.no-padding-left{
+   padding-left: 0 !important;
+}
+.no-padding-right{
+   padding-right: 0 !important;
+}
+.no-border-right{
+   border-right: none !important;
+}

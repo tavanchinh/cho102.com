@@ -1,0 +1,135 @@
+<?php
+/* @var $this ProductController */
+
+$this->breadcrumbs=array(
+	'Product'=>array('/product'),
+	'Detail',
+);
+$baseUrl = Yii::app()->request->baseUrl;
+//Yii::app()->clientScript->registerCssFile($baseUrl.'/css/cloud-zoom.css');
+//Yii::app()->clientScript->registerScriptFile($baseUrl.'/js/cloud-zoom.1.0.2.js');
+?>
+<div class="main-container col2-left-layout">
+   <div class="main-container-tile">
+      <div class="container">
+         <div class="row">
+            <div class="col-xs-12">
+               <div class="main">
+                  <?php 
+                     if(isset($this->breadcrumbs)){
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                  			'links'=>$this->breadcrumbs,
+                  		)); 
+                     ?><!-- breadcrumbs -->
+               	<?php }?>
+                  <div class="row">
+                     <div class="col-main col-xs-12 col-sm-9">
+                        <div class="padding-s">
+                           <div id="messages_product_view"></div>
+                           <div class="product-view">
+                              <div class="product-essential">
+                                   <div class="no-display">
+                                       <input type="hidden" name="product" value="19" />
+                                       <input type="hidden" name="related_product" id="related-products-field" value="" />
+                                    </div>
+                                    <div class="product-img-box">
+                                       <div class="product-box-customs">
+                                          <p class="product-image">
+                                             <a  href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png' class = 'cloud-zoom' id='zoom1' rel="position:'right',showTitle:1,titleOpacity:0.5,lensOpacity:0.5,adjustX: 10,adjustY:-4">
+                                             <img class="big" src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/308x308/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png" alt='' title="ET Paper Shopping Bag" />
+                                             </a>
+                                          </p>
+                                          <div class="more-views">
+                                             <h2>More Views</h2>
+                                             <div class="container-slider">
+                                                <ul class="slider tumbSlider-none" >
+                                                   <li>
+                                                      <a href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_1.png' class='cloud-zoom-gallery' title=''
+                                                         rel="useZoom: 'zoom1', smallImage: 'http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/308x308/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_1.png' ">
+                                                      <img src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/97x/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_1.png" alt=""/>
+                                                      </a>
+                                                   </li>
+                                                   <li>
+                                                      <a href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png' class='cloud-zoom-gallery' title=''
+                                                         rel="useZoom: 'zoom1', smallImage: 'http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/308x308/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png' ">
+                                                      <img src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/97x/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png" alt=""/>
+                                                      </a>
+                                                   </li>
+                                                   <li>
+                                                      <a href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_3.png' class='cloud-zoom-gallery' title=''
+                                                         rel="useZoom: 'zoom1', smallImage: 'http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/image/308x308/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_3.png' ">
+                                                      <img src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/97x/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_3.png" alt=""/>
+                                                      </a>
+                                                   </li>
+                                                </ul>
+                                             </div>
+                                          </div>
+                                          <div class="gallery-swipe-content">
+                                             <ul id="gallery-swipe" class="gallery-swipe">
+                                                <li>
+                                                   <a href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_1.png'  title=''>
+                                                   <img src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_1.png" alt=""/>
+                                                   </a>
+                                                </li>
+                                                <li>
+                                                   <a href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png'  title=''>
+                                                   <img src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_2.png" alt=""/>
+                                                   </a>
+                                                </li>
+                                                <li>
+                                                   <a href='http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_3.png'  title=''>
+                                                   <img src="http://livedemo00.template-help.com/magento_52429/media/catalog/product/cache/1/thumbnail/600x600/9df78eab33525d08d6e5fb8d27136e95/e/t/et_paper_shopping_bag_3.png" alt=""/>
+                                                   </a>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-shop">
+                                       <div class="product-name">
+                                          <h1><?php echo 'ET Paper Shopping Bag'?></h1>
+                                       </div>
+                                       <div class="price-box">
+                                          <span class="regular-price" id="product-price-19">
+                                          <p class="new-price"><?php echo Str::formatNumber(348000).'đ'?></p>
+                                       </div>
+                                       <div class="clear"></div>
+                                       <div class="short-description">
+                                          <h2>Tổng quan</h2>
+                                          <div class="std">
+                                             <p>Our store is offering a great number of different products and services. We have a great experience and a perfect reputation. You can buy here goods of premium quality and by a fair price. Our vendors and manufacturers guarantee the highest level of quality.</p>
+                                          </div>
+                                       </div>
+                                       <div class="clear"></div>
+                                       
+                                       <!-- AddThis Button END -->
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="clearer"></div>                                 
+                              </div>
+                              <div class="product-collateral">
+                                 <div class="box-collateral box-description">
+                                    <h2>Chi tiết</h2>
+                                    <div class="box-collateral-content">
+                                       <div class="std">
+                                          <p>Our store is offering a great number of different products and services. We have a great experience and a perfect reputation. You can buy here goods of premium quality and by a fair price. Our vendors and manufacturers guarantee the highest level of quality.</p>
+                                          <br /><p>The products of our store have a great number of different advantages. You will be surprised by the reliability of our commodities and the highest level of our serving. Also our goods are very flexible and durable. We can satisfy any whim of our customers.</p><br />
+                                          <p>There is no doubt about our reputation because it is perfect; we have a great experience in this business. We always stay in touch with the latest fashion and hi-tech tendencies.</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+                           
+                           
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
