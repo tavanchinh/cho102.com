@@ -71,7 +71,7 @@ class CategoryController extends Controller
 		{
 			$model->attributes=$_POST['Category'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(

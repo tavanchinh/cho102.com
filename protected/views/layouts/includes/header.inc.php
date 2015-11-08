@@ -1,12 +1,14 @@
-<?php 
-   $categories = Yii::app()->cache->get('categories');
-   $categories = false;
-   if($categories === false){ 
-      $criteria = new CDbCriteria();
-      $criteria->order = 'position';
-      $categories = Category::model()->findAll($criteria);
-      Yii::app()->cache->set('categories',$categories,86400);
-   }
+<?php
+    $categories = Yii::app()->cache->get('categories');
+    //$categories = false;
+    if($categories === false){ 
+        $criteria = new CDbCriteria();
+        $criteria->order = 'position';
+        $criteria->addCondition('parent_id = 0');
+        $categories = Category::model()->findAll($criteria);
+        Yii::app()->cache->set('categories',$categories,86400);
+        //CVarDumper::dump($categories,10,true);die;
+    }
    
    
 ?>

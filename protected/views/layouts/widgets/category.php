@@ -1,26 +1,27 @@
 <div class="block block-cate first">
-   <p class="title">
-      <i class="fa fa-tasks"></i>
-      Chuyên mục
-   </p>
    <div class="block-content">
       <ul class="list-categories">
          <?php 
-         
          $categories = Yii::app()->cache->get('categories');
-         $categories = false;
-         if($categories === false){ 
-            $criteria = new CDbCriteria();
-            $criteria->order = 'position';
-            $categories = Category::model()->findAll($criteria);
-            Yii::app()->cache->set('categories',$categories,86400);
-         }
          $i = 0;
          foreach($categories as $value){
-            $i++; ?>
+            $i++; 
+            $sub = Category::model()->getSub($value->id);
+            //CVarDumper::dump($sub,10,true);
+            ?>
          <li class="cate-item">
             <i class="sprite icon-<?php echo $i?>"></i>
             <a href="#"><?php echo $value->name;?></a>
+            <?php if(count($sub) > 0){
+                echo '<ul class="sub-menu">';
+                foreach($sub as $sub_item){ ?>
+                    <li>
+                        <a href="#"><?php echo $sub_item->name?></a>
+                    </li>
+                <?php }
+                echo '</ul>';
+            }?>
+            
          </li>
          <?php }?>
       </ul>

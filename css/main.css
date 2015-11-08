@@ -242,7 +242,7 @@ textarea {
 }
 #content .left-content {
     float: left;
-    width: 300px;
+    width: 200px;
 }
 #content .right-content {
     margin: 0 0 0 320px;
@@ -265,12 +265,27 @@ textarea {
     font-size: 14px;
 }
 .list-categories li {
-    margin: 0 0 8px 0;
+    margin: 0px 4px;
+    position: relative;
+    border-top: 1px solid #666b7d;
+}
+.list-categories{
+    background: #565B70;
+}
+.list-categories li > .sub-menu{
+    position: absolute;
+    top:0;
+    left: 100%;
+    background: #f7f7f7;
+    box-shadow: 0 2px 2px #000000 inset ;
+    display: none;
+    width: 190px;
 }
 .list-categories li > i.sprite {
     width: 27px;
     height: 24px;
-    float: left;
+    position: absolute;
+    top: 7px;
 }
 .list-categories li .icon-1 {
     background-position: -1px 1px;
@@ -293,9 +308,12 @@ textarea {
 .list-categories li .icon-7 {
     background-position: -1px -120px;
 }
-.block-content li > a {
-    padding: 5px 0 5px 8px;
-    display: inline-block;
+.block-content li.cate-item > a {
+    display: block;
+    margin-left: 30px;
+    padding: 10px 0;
+    color: #ffffff;
+    font-weight: bold;
 }
 .block-filter-price .input-text {
     width: 114px;
