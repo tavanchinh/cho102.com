@@ -1,7 +1,9 @@
-p,
-ul,
-ol,
-form {
+@font-face {
+    font-family: 'roboto';
+    src:url( '../assets/fonts/RobotoCondensed-Regular.ttf');
+    font-weight:400;
+}
+p,ul,ol,form {
     margin: 0;
     padding: 0;
 }
@@ -180,10 +182,7 @@ a:focus {
 .main-menu > li {
     float: left;
     position: relative;
-    width: 167px;
-}
-.main-menu > li:last-child {
-    width: 168px;
+    width: 195px;
 }
 .main-menu > li > a {
     border-left: 1px solid #fff;
@@ -194,6 +193,9 @@ a:focus {
     background: #05B2A8;
     font-size: 14px;
     transition: 0.3s all ease-in-out;
+    font-size: 15px;
+    font-family: 'roboto';
+    text-transform: uppercase;
 }
 .main-menu > li > a:hover {
     background: #565B70;
@@ -346,22 +348,21 @@ textarea {
 }
 .block-cate-home{
     overflow: hidden;
-    border:1px solid #dcdcdc;
     border-top:2px solid #f57aa5;
     margin: 0 0 20px 0;
 }
 .block-cate-home .cate-parent-title{
     float: left;
-    width: 140px;
-    height: 78px;
-    text-align: left;
+    width: 125px;
+    height: 50px;
+    text-align: center;
     text-transform: uppercase;
     font-size: 15px;
-    padding: 10px 0 0 10px;
     line-height: 26px;
     background: #f57aa5;
-    margin: 0;
-    
+    margin: 0 0 10px 0;
+    font-family: 'roboto';
+    line-height: 48px;
 }
 .block-cate-home .cate-parent-title a{
     color: #ffffff;
@@ -375,6 +376,10 @@ textarea {
     padding: 10px 0;
     border-left: 1px solid #dcdcdc;
     margin: 5px 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 13px;
 }
 .block-cate-home .subcategories-list li:first-child a{
     border:none;
@@ -384,11 +389,15 @@ textarea {
     margin-left: 30px;
     padding: 10px 0;
     color: #ffffff;
-    font-weight: bold;
+    font-family: 'roboto';
+    font-size: 15px;
 }
 .block-filter-price .input-text {
-    width: 114px;
+    width: 93px;
     margin-right: 10px;
+}
+.block-filter-price #to_price{
+    margin-right: 0;
 }
 .block-filter-price button {
     border: none;
@@ -400,6 +409,7 @@ textarea {
     border: none;
     color: #ffffff;
     transition: 0.3s all ease-in-out;
+    margin: 10px 0 0 0;
 }
 .block-filter-price button:hover {
     background: #409086;
@@ -430,7 +440,7 @@ textarea {
     padding-right: 5px;
     padding-left: 5px;
     width: 20%;
-    margin: 0 0 25px;
+    margin: 0 0 10px;
 }
 .products-grid .item .product-container {
     background: #fff;

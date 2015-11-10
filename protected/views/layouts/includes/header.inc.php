@@ -246,7 +246,7 @@
             <?php }?>
             
          </ul>
-         
+         <div class="clear"></div>
          <form class="form-search-2" action="" method="get">
             <div class="search-item search-category">
                <?php 
