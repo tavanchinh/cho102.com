@@ -2,8 +2,8 @@
    <div class="block-content">
       <ul class="list-categories">
          <?php 
-         $categories = Yii::app()->cache->get('categories');
-         $i = 0;
+         $categories = Category::model()->getAllParent();
+         $i = 1;
          foreach($categories as $value){
             $i++; 
             $sub = Category::model()->getSub($value->id);

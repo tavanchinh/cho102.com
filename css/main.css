@@ -196,7 +196,7 @@ a:focus {
     transition: 0.3s all ease-in-out;
 }
 .main-menu > li > a:hover {
-    background: #968b7c;
+    background: #565B70;
 }
 .main-menu > li:first-child a {
     border: none;
@@ -245,7 +245,7 @@ textarea {
     width: 200px;
 }
 #content .right-content {
-    margin: 0 0 0 320px;
+    margin: 0 0 0 220px;
 }
 .left-content .block {
     margin: 0 0 20px 0;
@@ -264,10 +264,33 @@ textarea {
 .block-content li {
     font-size: 14px;
 }
-.list-categories li {
-    margin: 0px 4px;
+.list-categories{
     position: relative;
+}
+.list-categories > li {
+    margin: 0px;
     border-top: 1px solid #666b7d;
+    padding: 0 5px;
+    transition: all 0.1s ease;
+}
+.list-categories > li:hover:after{
+    content:"";
+    border: 19.5px solid transparent;
+    float: right;
+    border-left: 7px solid #05B2A8;
+    position: relative;
+    z-index: 3;
+    top: -38px;
+    left: 31px;
+}
+.list-categories li:first-child{
+    border:none;
+}
+.list-categories > li:hover{
+    background: #05B2A8;
+}
+.list-categories li:hover > .sub-menu{
+    display: block;
 }
 .list-categories{
     background: #565B70;
@@ -276,16 +299,29 @@ textarea {
     position: absolute;
     top:0;
     left: 100%;
+    bottom:0;
     background: #f7f7f7;
-    box-shadow: 0 2px 2px #000000 inset ;
     display: none;
     width: 190px;
+    z-index: 2;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+.sub-menu > li > a{
+    display: block;
+    color:#333333;
+    font-size: 13px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+.sub-menu > li > a:hover{
+    color: #0388cd;
+    background: none;
 }
 .list-categories li > i.sprite {
     width: 27px;
     height: 24px;
-    position: absolute;
-    top: 7px;
+    float: left;
+    margin: 7px 0 0 0;
 }
 .list-categories li .icon-1 {
     background-position: -1px 1px;
@@ -307,6 +343,41 @@ textarea {
 }
 .list-categories li .icon-7 {
     background-position: -1px -120px;
+}
+.block-cate-home{
+    overflow: hidden;
+    border:1px solid #dcdcdc;
+    border-top:2px solid #f57aa5;
+    margin: 0 0 20px 0;
+}
+.block-cate-home .cate-parent-title{
+    float: left;
+    width: 140px;
+    height: 78px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 15px;
+    padding: 10px 0 0 10px;
+    line-height: 26px;
+    background: #f57aa5;
+    margin: 0;
+    
+}
+.block-cate-home .cate-parent-title a{
+    color: #ffffff;
+}
+.block-cate-home .subcategories-list li{
+    float: left;
+    text-align: center;
+}
+.block-cate-home .subcategories-list li a{
+    display: block;
+    padding: 10px 0;
+    border-left: 1px solid #dcdcdc;
+    margin: 5px 0;
+}
+.block-cate-home .subcategories-list li:first-child a{
+    border:none;
 }
 .block-content li.cate-item > a {
     display: block;

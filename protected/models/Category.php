@@ -174,4 +174,18 @@ class Category extends CActiveRecord
         return $data;
         //Yii::app()->cache->set('sub_cat_id_'.$parent_id);
     }
+    
+    
+    public function getAllParent(){
+        $categories = Yii::app()->cache->get('categories');
+        if($categories === false){ 
+            $criteria = new CDbCriteria();
+            $criteria->order = 'position';
+            $criteria->addCondition('parent_id = 0');
+            $categories = Category::model()->findAll($criteria);
+            Yii::app()->cache->set('categories',$categories,86400);
+        }
+        
+        return $categories;
+    }
 }
