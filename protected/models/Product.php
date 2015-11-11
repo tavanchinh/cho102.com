@@ -175,4 +175,36 @@ class Product extends CActiveRecord
         }
         return $data;
     }
+
+    /**
+    * Lay danh sanh san pham theo cat_id
+    * @param 
+    */
+    public function getByCate($cat_id,$limit,$page = 1){
+        $data = Yii::app()->cache->get('prodcut_cate_'.$cat_id);
+        if($data === false || $page > 0){
+            $offset = $page*$limit-$limit;
+            $criteria = new CDbCriteria;
+            $criteria->addCondition('active=1');
+            
+            $list_cat_chidren = array($cat_id);
+            $sql = "SELECT id FROM category WHERE parent_id =:parent_id";
+            $result = Yii::app()->db->createCommand($sql)->bindParam(':parent_id',$cat_id)->queryAll();
+            if(count($result) > 0){
+                foreach($result as $value){
+                    $list_cat_chidren[] = $value['id'];
+                }
+            }
+            $criteria->addInCondition('cat_id',$list_cat_chidren);
+            $criteria->order = 'id DESC';
+            $criteria->offset = $offset;
+            $criteria->limit = $limit;
+            
+            $data = Product::model()->findAll($criteria);
+            Yii::app()->cache->set('prodcut_cate_'.$cat_id,$data,3600);
+        }
+        //CVarDumper::dump($data,10,true);die;
+        $sliced_array = array_slice($data, 0, $limit);
+        return $sliced_array;
+    }
 }

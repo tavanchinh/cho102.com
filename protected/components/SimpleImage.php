@@ -5,67 +5,88 @@ class SimpleImage
 
     var $image;
     var $image_type;
-    var $folder_upload = 'uploads';
+    public $folder_upload = 'uploads';
     function load($filename)
     {
+        $file = explode('.', $filename);
+        $ext = end($file);
 
-        if (!file_exists($filename)) {
+        if (!file_exists($filename) || $ext == 'jpeg')
+        {
             $filename = Yii::getPathOfAlias('webroot') . '/images/logo.png';
             //var_dump($filename);die();
         }
+        $file_content = file_get_contents($filename);
+        if ($file_content)
+        {
+            //echo $filename;die();
+            $image_info = getimagesize($filename);
+            $this->image_type = $image_info[2];
+            if ($this->image_type == IMAGETYPE_JPEG)
+            {
 
-        $image_info = getimagesize($filename);
-        $this->image_type = $image_info[2];
-        if ($this->image_type == IMAGETYPE_JPEG) {
+                $this->image = imagecreatefromjpeg($filename);
+            } elseif ($this->image_type == IMAGETYPE_GIF)
+            {
 
-            $this->image = imagecreatefromjpeg($filename);
-        } elseif ($this->image_type == IMAGETYPE_GIF) {
+                $this->image = imagecreatefromgif($filename);
+            } elseif ($this->image_type == IMAGETYPE_PNG)
+            {
 
-            $this->image = imagecreatefromgif($filename);
-        } elseif ($this->image_type == IMAGETYPE_PNG) {
-
-            $this->image = imagecreatefrompng($filename);
+                $this->image = imagecreatefrompng($filename);
+            }
         }
+
     }
-    function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 75, $permissions = null)
+    function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 90, $permissions = null)
     {
+        if ($this->image != null)
+        {
+            if ($image_type == IMAGETYPE_JPEG)
+            {
+                imagejpeg($this->image, $filename, $compression);
+            } elseif ($image_type == IMAGETYPE_GIF)
+            {
 
-        if ($image_type == IMAGETYPE_JPEG) {
-            imagejpeg($this->image, $filename, $compression);
-        } elseif ($image_type == IMAGETYPE_GIF) {
+                imagegif($this->image, $filename);
+            } elseif ($image_type == IMAGETYPE_PNG)
+            {
 
-            imagegif($this->image, $filename);
-        } elseif ($image_type == IMAGETYPE_PNG) {
+                imagepng($this->image, $filename);
+            }
+            if ($permissions != null)
+            {
 
-            imagepng($this->image, $filename);
+                chmod($filename, $permissions);
+            }
         }
-        if ($permissions != null) {
 
-            chmod($filename, $permissions);
-        }
     }
     function output($image_type = IMAGETYPE_JPEG)
     {
 
-        if ($image_type == IMAGETYPE_JPEG) {
+        if ($image_type == IMAGETYPE_JPEG)
+        {
             imagejpeg($this->image);
-        } elseif ($image_type == IMAGETYPE_GIF) {
+        } elseif ($image_type == IMAGETYPE_GIF)
+        {
 
             imagegif($this->image);
-        } elseif ($image_type == IMAGETYPE_PNG) {
+        } elseif ($image_type == IMAGETYPE_PNG)
+        {
 
             imagepng($this->image);
         }
     }
     function getWidth()
     {
-
-        return imagesx($this->image);
+        if ($this->image != null)
+            return imagesx($this->image);
     }
     function getHeight()
     {
-
-        return imagesy($this->image);
+        if ($this->image != null)
+            return imagesy($this->image);
     }
     function resizeToHeight($height)
     {
@@ -77,9 +98,13 @@ class SimpleImage
 
     function resizeToWidth($width)
     {
-        $ratio = $width / $this->getWidth();
-        $height = $this->getheight() * $ratio;
-        $this->resize($width, $height);
+        if ($this->getWidth() > 0)
+        {
+            $ratio = $width / $this->getWidth();
+            $height = $this->getheight() * $ratio;
+            $this->resize($width, $height);
+        }
+
     }
 
     function scale($scale)
@@ -107,7 +132,8 @@ class SimpleImage
         $imgtype = image_type_to_mime_type($info[2]);
 
         #assuming the mime type is correct
-        switch ($imgtype) {
+        switch ($imgtype)
+        {
             case 'image/jpeg':
                 $source = imagecreatefromjpeg($source_image);
                 break;
@@ -132,13 +158,16 @@ class SimpleImage
         $x_ratio = $tn_w / $src_w;
         $y_ratio = $tn_h / $src_h;
 
-        if (($src_w <= $tn_w) && ($src_h <= $tn_h)) {
+        if (($src_w <= $tn_w) && ($src_h <= $tn_h))
+        {
             $new_w = $src_w;
             $new_h = $src_h;
-        } elseif (($x_ratio * $src_h) < $tn_h) {
+        } elseif (($x_ratio * $src_h) < $tn_h)
+        {
             $new_h = ceil($x_ratio * $src_h);
             $new_w = $tn_w;
-        } else {
+        } else
+        {
             $new_w = ceil($y_ratio * $src_w);
             $new_h = $tn_h;
         }
@@ -153,13 +182,15 @@ class SimpleImage
             $new_w, $new_h);
 
         #if we need to add a watermark
-        if ($wmsource) {
+        if ($wmsource)
+        {
             #find out what type of image the watermark is
             $info = getimagesize($wmsource);
             $imgtype = image_type_to_mime_type($info[2]);
 
             #assuming the mime type is correct
-            switch ($imgtype) {
+            switch ($imgtype)
+            {
                 case 'image/jpeg':
                     $watermark = imagecreatefromjpeg($wmsource);
                     break;
@@ -180,7 +211,8 @@ class SimpleImage
             imagecopy($final, $watermark, $tn_w - $wm_w, $tn_h - $wm_h, 0, 0, $tn_w, $tn_h);
 
         }
-        if (imagejpeg($final, $destination, $quality)) {
+        if (imagejpeg($final, $destination, $quality))
+        {
             return true;
         }
         return false;
@@ -196,7 +228,8 @@ class SimpleImage
         $imgtype = image_type_to_mime_type($info[2]);
 
         #assuming the mime type is correct
-        switch ($imgtype) {
+        switch ($imgtype)
+        {
             case 'image/jpeg':
                 $im = imagecreatefromjpeg($image);
                 break;
@@ -217,7 +250,8 @@ class SimpleImage
         imagecopy($im, $watermark, imagesx($im) - $wm_w - $marge_right, $marge_top, 0, 0,
             $wm_w, $wm_h);
 
-        switch ($imgtype) {
+        switch ($imgtype)
+        {
             case 'image/jpeg':
                 imagejpeg($im, $image, $compression);
                 break;
@@ -232,6 +266,7 @@ class SimpleImage
 
     }
 
+
     /**
      * Get path save image by name
      * @param string image_name
@@ -242,12 +277,14 @@ class SimpleImage
         $prefix = '/' . $this->folder_upload . '/';
         $default = '/images/df_image.png';
         $explode = explode('-', $image_name);
-        if (count($explode) > 0) {
+        if (count($explode) > 0)
+        {
             $last_elm = end($explode);
             $explode = explode(".", $last_elm);
             $date_folder = substr($explode[0], 0, 4) . "/" . substr($explode[0], 4, 2) . '/';
             return $prefix . $date_folder . $image_name;
-        } else {
+        } else
+        {
             return $default;
         }
     }
@@ -259,12 +296,14 @@ class SimpleImage
     {
         $prefix = '/' . $this->folder_upload . '/';
         $explode = explode('-', $image_name);
-        if (count($explode) > 0) {
+        if (count($explode) > 0)
+        {
             $last_elm = end($explode);
             $explode = explode(".", $last_elm);
             $date_folder = substr($explode[0], 0, 4) . "/" . substr($explode[0], 4, 2) . '/';
             return $prefix . $date_folder;
-        } else {
+        } else
+        {
             return null;
         }
     }
@@ -274,15 +313,18 @@ class SimpleImage
      */
     public function makeThumbnail($file_name, $sizes = array('380'))
     {
-        if (strpos($file_name, 'http://') === false) {
+        if (strpos($file_name, 'http://') === false)
+        {
             $source_file = Yii::getPathOfAlias('webroot') . $this->getFullPathImageByName($file_name);
             //echo $source_file;die();
-            foreach ($sizes as $width) {
+            foreach ($sizes as $width)
+            {
                 $this->load($source_file);
                 $this->resizeToWidth($width);
                 $path_to_save = Yii::getPathOfAlias('webroot') . $this->getOnlyPathImageByName($file_name) .
                     $width;
-                if (!is_dir($path_to_save)) {
+                if (!is_dir($path_to_save))
+                {
                     mkdir($path_to_save, 0777, true);
                     chmod($path_to_save, 0777);
                 }
@@ -295,26 +337,32 @@ class SimpleImage
     /**
      * Get thumbnail
      */
-    public function getThubnail($file_name, $size = 380)
+    public function getThumbnail($file_name, $size = 380)
     {
         $default = Yii::app()->request->baseUrl . '/images/default.jpg';
-        if ($file_name == '') {
+        if ($file_name == '')
+        {
             return $default;
         }
-        if (strpos($file_name, 'http://') !== false) {
+        if (strpos($file_name, 'http://') !== false)
+        {
             return $file_name;
         }
         $folder = $this->getOnlyPathImageByName($file_name);
 
         $relative_image = $folder . $size . '/' . $file_name;
         $file = Yii::getPathOfAlias('webroot') . $relative_image;
-        if (file_exists($file)) {
+        if (file_exists($file))
+        {
             return $relative_image;
-        } else {
+        } else
+        {
             $this->makeThumbnail($file_name, array($size));
-            if (file_exists($file)) {
+            if (file_exists($file))
+            {
                 return $relative_image;
-            } else {
+            } else
+            {
                 return $default;
             }
         }
@@ -331,10 +379,25 @@ class SimpleImage
         return $folder . $file_name;
     }
     
-    public static function model(){
-        $model = new SimpleImage;
-        return $model;
+    
+    /**
+     * Convert string base64 to jpeg image
+    */
+    function base64_to_jpeg($base64_string, $output_file)
+    {
+        $ifp = fopen($output_file, "wb");
+        fwrite($ifp, base64_decode($base64_string));
+        fclose($ifp);
+        return $output_file;
+    }
+
+
+    public static function model()
+    {
+        $simple_image = new SimpleImage;
+        return $simple_image;
     }
 
 }
+
 ?>
