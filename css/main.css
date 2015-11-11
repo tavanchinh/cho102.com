@@ -253,9 +253,8 @@ textarea {
     margin: 0 0 20px 0;
 }
 .block p.title {
-    margin: 0 0 10px;
-    background: #968b7c;
-    padding: 8px 15px 9px;
+    background: #F57AA5;
+    padding: 8px;
     position: relative;
     font-size: 16px;
     line-height: 22px;
@@ -263,8 +262,20 @@ textarea {
     font-weight: bold;
     text-transform: uppercase;
 }
+.block .block-content{
+    padding: 5px;
+    background:#565B70;
+}
 .block-content li {
     font-size: 14px;
+}
+.block-content li > a{
+    color:#ffffff;
+    display: block;
+    padding: 5px;
+}
+.block-content li > a i.fa{
+    margin: 0 5px 0 0;
 }
 .list-categories{
     position: relative;
@@ -393,7 +404,7 @@ textarea {
     font-size: 15px;
 }
 .block-filter-price .input-text {
-    width: 93px;
+    width: 88px;
     margin-right: 10px;
 }
 .block-filter-price #to_price{
