@@ -106,8 +106,30 @@ class ProductController extends Controller
         $this->render('create', array(
             'model' => $model,
             'user_info' => $user_info,
-            ));
+        ));
     }
+    
+    
+    
+    /**
+     * Filter product
+    */
+    public function actionFilter(){
+        $cat_id = Yii::app()->request->getParam('cat_id');
+        $cate = Category::model()->findByPk($cat_id);
+        $list_product = Product::model()->getByCate($cat_id,15);
+        $sub = Category::model()->getSub($cat_id);
+        
+        //CVarDumper::dump($list_product,10,true);die;
+        
+        $this->render('filter',array(
+            'list_product' => $list_product,
+            'sub' => $sub,
+            'cate' => $cate,
+        ));
+    }
+    
+    
 
     public function actionUploadImage()
     {

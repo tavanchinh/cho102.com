@@ -165,17 +165,20 @@ class Category extends CActiveRecord
         $cache = Yii::app()->cache->get('sub_cat_id_'.$parent_id);
         if($cache !== false){
             return $cache;
+        }else{
+            $criteria = new CDbCriteria;
+            $criteria->addCondition('parent_id ='. $parent_id);
+            $criteria->addCondition('active=1');
+            $criteria->order = 'position ASC';
+            $data = Category::model()->findAll($criteria);
+            Yii::app()->cache->set('sub_cat_id_'.$parent_id,$data,3600);
         }
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('parent_id ='. $parent_id);
-        $criteria->addCondition('active=1');
-        $criteria->order = 'position ASC';
-        $data = Category::model()->findAll($criteria);
+        
         return $data;
-        //Yii::app()->cache->set('sub_cat_id_'.$parent_id);
+        
     }
     
-    
+    //Tra ve danh sach tat ca cac cate co parent_id = 0
     public function getAllParent(){
         $categories = Yii::app()->cache->get('categories');
         if($categories === false){ 
@@ -187,5 +190,16 @@ class Category extends CActiveRecord
         }
         
         return $categories;
+    }
+    
+    
+    //Tra ve thong tin cua cate co su dung cache
+    public function getInfoById($id){
+        $data = Yii::app()->cache->get('info_cat_'.$id);
+        if($data === false){
+            $data = Category::model()->findByPk($id);
+            Yii::app()->cache->set('info_cat_'.$id,$data,3600);
+        }
+        return $data;
     }
 }

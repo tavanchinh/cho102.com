@@ -1,3 +1,4 @@
+<?php ?>
 <div class="container">
     <div class="left-content">
         <?php $this->renderPartial('/layouts/widgets/category')?>
@@ -9,39 +10,30 @@
         <?php 
         $categories = Category::model()->getAllParent();
             foreach($categories as $value){ 
+                $link_cate_parent = Str::makeLink($value->id,$value->name,'danh-muc');
                 $sub = Category::model()->getSub($value->id);
                 $count = count($sub);
                 $list_product = Product::model()->getByCate($value->id,8);
                 ?>
                 <div class="block-cate-home">
                 <h2 class="cate-parent-title">
-                    <a href="#"><?php echo $value->name?></a>
+                    <a href="<?php echo $link_cate_parent?>"><?php echo $value->name?></a>
                 </h2>
                 <?php if($count > 0){ 
                     $width = floor(823/$count);
                     ?>
                     <ul class="subcategories-list">
-                        <?php foreach($sub as $sub_item){?>
+                        <?php foreach($sub as $sub_item){
+                            $link_cate_sub = Str::makeLink($sub_item->id,$sub_item->name,'danh-muc');
+                            ?>
                             <li style="width: <?php echo $width.'px'?>;">
-                                <a title="<?php echo $sub_item->name?>" href="#"><?php echo $sub_item->name?></a>
+                                <a href="<?php echo $link_cate_sub?>" title="<?php echo $sub_item->name?>" href="#"><?php echo $sub_item->name?></a>
                             </li>
                         <?php }?>
                     </ul>
                 <?php }?>
                 <div class="clear"></div>
                     <ul class="products-grid row">
-                    <?php $arr = array(
-                         array('title' => 'DURHAM MUG','img' => 'durham_mug_3.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'ET PAPER SHOPPING BAG','img' => 'et_paper_shopping_bag_2.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'TURNED EDGE RING BINDER','img' => 'turned_edge_flex_hinge_ring_binder_1.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'VINYL PORTFOLIO WITH CD POCKET','img' => 'vinyl_portfolio_with_cd_pocket_1.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'US NAVY PROMOTIONAL MUGS','img' => 'us_navy_printed_promotional_mugs_3.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'HERCULES SHOPPING BAG','img' => 'hercules_shopping_bag_1.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'APEX PAPER SHOPPING BAG','img' => 'apex_paper_shopping_bag_3.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'MULTIMEDIA PRESENTATION FOLDER','img' => 'multimedia_presentation_folder_3.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'US NAVY PROMOTIONAL MUGS','img' => 'us_navy_printed_promotional_mugs_3.png','sapo' => 'Our store is offering a great numbe...'),
-                         array('title' => 'TURNED EDGE RING BINDER','img' => 'turned_edge_flex_hinge_ring_binder_1.png','sapo' => 'Our store is offering a great numbe...'),
-                      );?>
                         <?php foreach($list_product as $value){
                             $image = SimpleImage::model()->getThumbnail($value->avatar,'140');
                             $link = Str::makeLink($value->id,$value->name,'san-pham');

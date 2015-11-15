@@ -247,7 +247,8 @@ textarea {
     width: 200px;
 }
 #content .right-content {
-    margin: 0 0 0 220px;
+    float: right;
+    width: 960px;
 }
 .left-content .block {
     margin: 0 0 20px 0;
@@ -265,6 +266,9 @@ textarea {
 .block .block-content{
     padding: 5px;
     background:#565B70;
+}
+.block.block-cate .block-content{
+    padding: 0;
 }
 .block-content li {
     font-size: 14px;
@@ -398,7 +402,7 @@ textarea {
 .block-content li.cate-item > a {
     display: block;
     margin-left: 30px;
-    padding: 10px 0;
+    padding: 12px 0;
     color: #ffffff;
     font-family: 'roboto';
     font-size: 15px;
@@ -424,6 +428,24 @@ textarea {
 }
 .block-filter-price button:hover {
     background: #409086;
+}
+.breadcrumbs{
+    padding: 8px;
+    background: #E2E2E2;
+    font-size: 16px;
+    font-family: 'roboto';
+}
+.breadcrumbs a {
+    color:#333333;
+}
+.breadcrumbs a:hover{
+    color:#EA5757
+}
+.breadcrumbs span{
+    color:#666666;
+}
+.breadcrumbs i.fa{
+    margin: 0 10px;
 }
 .right-content .products-grid {
     overflow: hidden;
@@ -475,6 +497,7 @@ textarea {
 .products-grid .product-image img,
 .products-list .product-image img {
     max-width: 100%;
+    height: 140px;
 }
 .product-name {
     font-size: 14px;

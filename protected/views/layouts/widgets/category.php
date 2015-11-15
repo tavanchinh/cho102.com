@@ -1,4 +1,8 @@
 <div class="block block-cate first">
+   <p class="title">
+    <i class="fa fa-bars"></i>
+    <span>Danh mục</span>
+ </p>
    <div class="block-content">
       <ul class="list-categories">
          <?php 
